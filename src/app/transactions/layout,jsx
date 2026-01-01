@@ -1,0 +1,9 @@
+export const metadata = {
+  title: "Manage Transactions | Accounting Ledger System",
+  description: "Create, view, and manage double-entry accounting transactions. Record sales, purchases, receipts, and payments with automatic balance validation.",
+  keywords: "transactions, double-entry, accounting entries, debits, credits, bookkeeping",
+};
+
+export default function TransactionsLayout({ children }) {
+  return children;
+}
