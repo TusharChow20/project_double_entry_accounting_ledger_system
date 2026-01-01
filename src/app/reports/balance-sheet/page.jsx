@@ -141,10 +141,10 @@ export default function BalanceSheetPage() {
                   <tbody>
                     {liabilities.map((row, idx) => (
                       <tr key={idx} className="border-b border-gray-200">
-                        <td className="py-3 text-gray-900">
+                        <td className="py-3 text-gray-300">
                           {row.account_name}
                         </td>
-                        <td className="py-3 text-right font-semibold text-gray-900">
+                        <td className="py-3 text-right font-semibold text-gray-300">
                           ${Math.abs(row.balance).toFixed(2)}
                         </td>
                       </tr>

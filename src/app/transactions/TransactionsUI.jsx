@@ -235,7 +235,7 @@ export default function TransactionsUI() {
     <div className="min-h-screen bg-gray-900">
       <div className="container mx-auto px-4 py-8">
         {/* Header */}
-        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-8 gap-4">
+        <div className="flex flex-col-reverse sm:flex-row justify-between items-start sm:items-center mb-8 gap-4">
           <div>
             <h1 className="text-4xl font-bold text-gray-200 mb-2">
               Transactions
@@ -417,7 +417,7 @@ export default function TransactionsUI() {
 
         {/* modal seectionn  */}
         <dialog id="transaction_modal" className="modal modal-middle">
-          <div className="modal-box max-w-4xl bg-gradient-to-br from-gray-800 to-gray-900 border border-gray-700 p-0">
+          <div className="modal-box max-w-4xl bg-linear-to-br from-gray-800 to-gray-900 border border-gray-700 p-0">
             {/* Header */}
             <div className="flex items-center justify-between p-6 border-b border-gray-700">
               <div>
@@ -510,9 +510,15 @@ export default function TransactionsUI() {
                           className="w-full bg-gray-700 border border-gray-600 text-gray-200 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
                           required
                         >
-                          <option value="">Select account...</option>
+                          <option value="" className="bg-gray-800 text-white">
+                            Select account...
+                          </option>
                           {accounts.map((acc) => (
-                            <option key={acc.id} value={acc.id}>
+                            <option
+                              key={acc.id}
+                              value={acc.id}
+                              className="bg-gray-800 text-white"
+                            >
                               {acc.account_name} • {acc.account_type}
                             </option>
                           ))}
@@ -588,7 +594,7 @@ export default function TransactionsUI() {
                     <span className="text-xs text-gray-400 mb-1">
                       Total Debits
                     </span>
-                    <span className="text-2xl font-bold text-white">
+                    <span className="md::text-2xl font-bold text-white">
                       ${totalDebits.toFixed(2)}
                     </span>
                   </div>
@@ -616,7 +622,7 @@ export default function TransactionsUI() {
                     <span className="text-xs text-gray-400 mb-1">
                       Total Credits
                     </span>
-                    <span className="text-2xl font-bold text-white">
+                    <span className="md:text-2xl font-bold text-white">
                       ${totalCredits.toFixed(2)}
                     </span>
                   </div>

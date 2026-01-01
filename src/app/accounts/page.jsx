@@ -125,32 +125,30 @@ export default function AccountsPage() {
   }, {});
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-cyan-50 to-gray-100">
+    <div className="min-h-screen bg-gray-900 text-white">
       <div className="container mx-auto px-4 py-8">
         {/* Header */}
-        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-8 gap-4">
+        <div className="flex flex-col-reverse sm:flex-row justify-between items-start sm:items-center mb-8 gap-4">
           <div>
-            <h1 className="text-4xl font-bold text-gray-900 mb-2">
-              Accounts Management
-            </h1>
-            <p className="text-gray-600">Manage your chart of accounts</p>
+            <h1 className="text-4xl font-bold mb-2">Accounts Management</h1>
+            <p className="opacity-70">Manage your chart of accounts</p>
           </div>
           <Link
             href="/"
-            className="px-6 py-3 bg-white rounded-lg shadow hover:shadow-lg transition border border-gray-200 font-semibold text-gray-700 flex items-center gap-2"
+            className="px-6 py-3 bg-gray-800 rounded-lg shadow-lg hover:bg-gray-700 transition border border-gray-700 font-semibold flex items-center gap-2"
           >
             <Home className="w-4 h-4" />
             Home
           </Link>
         </div>
 
-        {/* Message */}
+        {/* Status Message */}
         {message.text && (
           <div
-            className={`mb-6 p-4 rounded-lg border-2 ${
+            className={`mb-6 p-4 rounded-lg border ${
               message.type === "success"
-                ? "bg-green-50 border-green-500 text-green-800"
-                : "bg-red-50 border-red-500 text-red-800"
+                ? "bg-green-900/30 border-green-500 text-green-200"
+                : "bg-red-900/30 border-red-500 text-red-200"
             }`}
           >
             {message.text}
@@ -158,31 +156,37 @@ export default function AccountsPage() {
         )}
 
         {/* Search and Filter */}
-        <div className="bg-white rounded-xl shadow-lg p-6 mb-6 border border-gray-200">
+        <div className="bg-gray-800 rounded-xl shadow-lg p-6 mb-6 border border-gray-700">
           <div className="flex flex-col md:flex-row gap-4">
             <div className="flex-1">
               <div className="relative">
-                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
+                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500 w-5 h-5" />
                 <input
                   type="text"
                   placeholder="Search accounts..."
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
-                  className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-cyan-500 focus:border-transparent"
+                  className="w-full pl-10 pr-4 py-2 bg-gray-900 border border-gray-700 rounded-lg focus:ring-2 focus:ring-cyan-500 outline-none transition"
                 />
               </div>
             </div>
             <div className="w-full md:w-48">
               <div className="relative">
-                <Filter className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
+                <Filter className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500 w-5 h-5" />
                 <select
                   value={filterType}
                   onChange={(e) => setFilterType(e.target.value)}
-                  className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-cyan-500 focus:border-transparent appearance-none"
+                  className="w-full pl-10 pr-4 py-2 bg-gray-900 text-white border border-gray-700 rounded-lg focus:ring-2 focus:ring-cyan-500 outline-none appearance-none cursor-pointer"
                 >
-                  <option value="">All Types</option>
+                  <option value="" className="bg-gray-800 text-white">
+                    All Types
+                  </option>
                   {accountTypes.map((type) => (
-                    <option key={type} value={type}>
+                    <option
+                      key={type}
+                      value={type}
+                      className="bg-gray-800 text-white"
+                    >
                       {type}
                     </option>
                   ))}
@@ -191,7 +195,7 @@ export default function AccountsPage() {
             </div>
             <button
               onClick={openCreateModal}
-              className="px-6 py-2 bg-cyan-600 text-white rounded-lg font-semibold shadow hover:bg-cyan-700 transition flex items-center justify-center gap-2"
+              className="px-6 py-2 bg-cyan-600 text-white rounded-lg font-semibold shadow hover:bg-cyan-500 transition flex items-center justify-center gap-2"
             >
               <Plus className="w-5 h-5" />
               New Account
@@ -202,57 +206,38 @@ export default function AccountsPage() {
         {/* Accounts List */}
         {loading ? (
           <div className="text-center py-12">
-            <div className="inline-block animate-spin rounded-full h-12 w-12 border-b-2 border-cyan-600"></div>
-            <p className="mt-4 text-gray-600">Loading accounts...</p>
+            <div className="inline-block animate-spin rounded-full h-12 w-12 border-b-2 border-cyan-500"></div>
           </div>
         ) : accounts.length === 0 ? (
-          <div className="bg-white rounded-xl shadow-lg p-12 text-center border border-gray-200">
-            <p className="text-gray-500 mb-4">No accounts found</p>
-            <button
-              onClick={openCreateModal}
-              className="px-6 py-2 bg-cyan-600 text-white rounded-lg font-semibold hover:bg-cyan-700 transition"
-            >
-              Create Your First Account
-            </button>
+          <div className="bg-gray-800 rounded-xl shadow-lg p-12 text-center border border-gray-700">
+            <p className="opacity-50 mb-4">No accounts found</p>
           </div>
         ) : (
           <div className="space-y-6">
             {Object.entries(groupedAccounts).map(([type, typeAccounts]) => (
               <div
                 key={type}
-                className="bg-white rounded-xl shadow-lg p-6 border border-gray-200"
+                className="bg-gray-800 rounded-xl shadow-lg p-6 border border-gray-700"
               >
-                <h3 className="text-2xl font-bold mb-4 text-gray-900 flex items-center gap-2">
-                  <span
-                    className={`w-3 h-3 rounded-full ${
-                      type === "Asset"
-                        ? "bg-green-500"
-                        : type === "Liability"
-                        ? "bg-red-500"
-                        : type === "Equity"
-                        ? "bg-blue-500"
-                        : type === "Revenue"
-                        ? "bg-emerald-500"
-                        : "bg-orange-500"
-                    }`}
-                  ></span>
+                <h3 className="text-2xl font-bold mb-4 flex items-center gap-3">
+                  <span className="w-2 h-8 bg-cyan-500 rounded-full"></span>
                   {type}
-                  <span className="text-sm font-normal text-gray-500">
+                  <span className="text-sm font-normal opacity-50">
                     ({typeAccounts.length})
                   </span>
                 </h3>
 
                 <div className="overflow-x-auto">
                   <table className="w-full">
-                    <thead className="bg-gray-50 border-b-2 border-gray-200">
+                    <thead className="border-b border-gray-700">
                       <tr>
-                        <th className="text-left py-3 px-4 font-semibold text-gray-700">
+                        <th className="text-left py-3 px-4 font-semibold opacity-70">
                           Account Name
                         </th>
-                        <th className="text-left py-3 px-4 font-semibold text-gray-700">
+                        <th className="text-left py-3 px-4 font-semibold opacity-70">
                           Description
                         </th>
-                        <th className="text-right py-3 px-4 font-semibold text-gray-700">
+                        <th className="text-right py-3 px-4 font-semibold opacity-70">
                           Actions
                         </th>
                       </tr>
@@ -261,31 +246,25 @@ export default function AccountsPage() {
                       {typeAccounts.map((account) => (
                         <tr
                           key={account.id}
-                          className="border-b border-gray-100 hover:bg-gray-50"
+                          className="border-b border-gray-700/50 hover:bg-gray-900/50 transition"
                         >
-                          <td className="py-3 px-4 font-medium text-gray-900">
+                          <td className="py-3 px-4 font-medium">
                             {account.account_name}
                           </td>
-                          <td className="py-3 px-4 text-gray-600 text-sm">
-                            {account.description || (
-                              <span className="text-gray-400 italic">
-                                No description
-                              </span>
-                            )}
+                          <td className="py-3 px-4 text-sm opacity-60">
+                            {account.description || "—"}
                           </td>
                           <td className="py-3 px-4 text-right">
                             <div className="flex justify-end gap-2">
                               <button
                                 onClick={() => handleEdit(account)}
-                                className="p-2 text-blue-600 hover:bg-blue-50 rounded transition"
-                                title="Edit account"
+                                className="p-2 hover:bg-gray-700 rounded text-cyan-400 transition"
                               >
                                 <Edit2 className="w-4 h-4" />
                               </button>
                               <button
                                 onClick={() => handleDelete(account.id)}
-                                className="p-2 text-red-600 hover:bg-red-50 rounded transition"
-                                title="Delete account"
+                                className="p-2 hover:bg-gray-700 rounded text-red-400 transition"
                               >
                                 <Trash2 className="w-4 h-4" />
                               </button>
@@ -303,15 +282,14 @@ export default function AccountsPage() {
 
         {/* Modal */}
         {showModal && (
-          <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
-            <div className="bg-white rounded-xl shadow-2xl max-w-md w-full p-6">
-              <h2 className="text-2xl font-bold mb-6 text-gray-900">
+          <div className="fixed inset-0 bg-black/70 flex items-center justify-center z-50 p-4 backdrop-blur-sm">
+            <div className="bg-gray-800 rounded-xl shadow-2xl max-w-md w-full p-6 border border-gray-700">
+              <h2 className="text-2xl font-bold mb-6">
                 {editingAccount ? "Edit Account" : "Create New Account"}
               </h2>
-
               <form onSubmit={handleSubmit} className="space-y-4">
                 <div>
-                  <label className="block text-sm font-semibold text-gray-700 mb-2">
+                  <label className="block text-sm font-semibold mb-2 opacity-80">
                     Account Name *
                   </label>
                   <input
@@ -320,14 +298,12 @@ export default function AccountsPage() {
                     onChange={(e) =>
                       setFormData({ ...formData, account_name: e.target.value })
                     }
-                    className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-cyan-500 focus:border-transparent"
-                    placeholder="e.g., Cash, Accounts Receivable"
+                    className="w-full bg-gray-900 border border-gray-700 rounded-lg px-4 py-2 focus:ring-2 focus:ring-cyan-500 outline-none"
                     required
                   />
                 </div>
-
                 <div>
-                  <label className="block text-sm font-semibold text-gray-700 mb-2">
+                  <label className="block text-sm font-semibold mb-2 opacity-80">
                     Account Type *
                   </label>
                   <select
@@ -335,52 +311,47 @@ export default function AccountsPage() {
                     onChange={(e) =>
                       setFormData({ ...formData, account_type: e.target.value })
                     }
-                    className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-cyan-500 focus:border-transparent"
+                    className="w-full bg-gray-900 border border-gray-700 rounded-lg px-4 py-2 focus:ring-2 focus:ring-cyan-500 outline-none appearance-none"
                     required
                   >
-                    <option value="">Select Type</option>
+                    <option value="" className="bg-gray-800 text-white">
+                      Select Type
+                    </option>
                     {accountTypes.map((type) => (
-                      <option key={type} value={type}>
+                      <option
+                        key={type}
+                        value={type}
+                        className="bg-gray-800 text-white"
+                      >
                         {type}
                       </option>
                     ))}
                   </select>
                 </div>
-
                 <div>
-                  <label className="block text-sm font-semibold text-gray-700 mb-2">
-                    Description (Optional)
+                  <label className="block text-sm font-semibold mb-2 opacity-80">
+                    Description
                   </label>
                   <textarea
                     value={formData.description}
                     onChange={(e) =>
                       setFormData({ ...formData, description: e.target.value })
                     }
-                    className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-cyan-500 focus:border-transparent"
-                    placeholder="Additional details about this account"
+                    className="w-full bg-gray-900 border border-gray-700 rounded-lg px-4 py-2 focus:ring-2 focus:ring-cyan-500 outline-none"
                     rows="3"
                   />
                 </div>
-
                 <div className="flex gap-3 pt-4">
                   <button
                     type="button"
-                    onClick={() => {
-                      setShowModal(false);
-                      setEditingAccount(null);
-                      setFormData({
-                        account_name: "",
-                        account_type: "",
-                        description: "",
-                      });
-                    }}
-                    className="flex-1 px-4 py-2 border border-gray-300 text-gray-700 rounded-lg font-semibold hover:bg-gray-50 transition"
+                    onClick={() => setShowModal(false)}
+                    className="flex-1 px-4 py-2 border border-gray-700 rounded-lg hover:bg-gray-700 transition"
                   >
                     Cancel
                   </button>
                   <button
                     type="submit"
-                    className="flex-1 px-4 py-2 bg-cyan-600 text-white rounded-lg font-semibold hover:bg-cyan-700 transition"
+                    className="flex-1 px-4 py-2 bg-cyan-600 rounded-lg font-semibold hover:bg-cyan-500 transition"
                   >
                     {editingAccount ? "Update" : "Create"}
                   </button>
