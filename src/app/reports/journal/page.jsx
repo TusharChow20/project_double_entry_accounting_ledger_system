@@ -12,10 +12,6 @@ export default function JournalPage() {
     new Date().toISOString().split("T")[0]
   );
 
-  useEffect(() => {
-    fetchReport();
-  }, [startDate, endDate]);
-
   const fetchReport = async () => {
     setLoading(true);
     try {
@@ -31,6 +27,9 @@ export default function JournalPage() {
     }
     setLoading(false);
   };
+  useEffect(() => {
+    fetchReport();
+  }, [startDate, endDate]);
 
   const groupedTransactions = reportData.reduce((acc, row) => {
     if (!acc[row.id]) {
@@ -50,30 +49,30 @@ export default function JournalPage() {
   }, {});
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-gray-100">
+    <div className="min-h-screen bg-gray-900">
       <div className="container mx-auto px-4 py-8">
-        <div className="flex justify-between items-center mb-8">
-          <div>
-            <h1 className="text-4xl font-bold text-gray-900 mb-2">
+        <div className="flex flex-col-reverse md:flex-row justify-between items-center mb-8">
+          <div className="">
+            <h1 className="text-4xl font-bold text-gray-100 mb-2">
               Journal Report
             </h1>
-            <p className="text-gray-600">
+            <p className="text-gray-300">
               Chronological list of all transactions
             </p>
           </div>
           <Link
             href="/reports"
-            className="px-6 py-3 bg-white rounded-lg shadow hover:shadow-lg transition border border-gray-200 font-semibold text-gray-700 flex items-center gap-2"
+            className="px-6 py-3 bg-gray-500 text-white rounded-lg shadow hover:shadow-lg transition border border-gray-200 font-semibold hover:text-red-400 flex items-center gap-2"
           >
             <ArrowLeft className="w-4 h-4" />
             Back to Reports
           </Link>
         </div>
 
-        <div className="bg-white rounded-xl shadow-lg p-6 mb-6 border border-gray-200">
+        <div className="rounded-xl shadow-lg p-6 mb-6 ">
           <div className="flex flex-wrap gap-4 items-end">
             <div className="flex-1 min-w-[200px]">
-              <label className="block text-sm font-semibold text-gray-700 mb-2">
+              <label className="block text-sm font-semibold text-gray-300 mb-2">
                 <Calendar className="w-4 h-4 inline mr-1" />
                 Start Date
               </label>
@@ -81,11 +80,11 @@ export default function JournalPage() {
                 type="date"
                 value={startDate}
                 onChange={(e) => setStartDate(e.target.value)}
-                className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2  focus:ring-blue-500 focus:border-transparent"
               />
             </div>
             <div className="flex-1 min-w-[200px]">
-              <label className="block text-sm font-semibold text-gray-700 mb-2">
+              <label className="block text-sm font-semibold text-gray-300 mb-2">
                 <Calendar className="w-4 h-4 inline mr-1" />
                 End Date
               </label>
@@ -116,11 +115,11 @@ export default function JournalPage() {
             {Object.values(groupedTransactions).map((trans) => (
               <div
                 key={trans.id}
-                className="bg-white rounded-lg shadow-md p-6 border-l-4 border-blue-500"
+                className="rounded-lg shadow-md p-6 border-l-4 border-blue-500"
               >
                 <div className="flex justify-between items-center mb-4">
                   <div>
-                    <p className="font-bold text-lg text-gray-900">
+                    <p className="font-bold text-lg text-gray-200">
                       {trans.description}
                     </p>
                     <p className="text-sm text-gray-500">
@@ -138,9 +137,9 @@ export default function JournalPage() {
                 </div>
 
                 <table className="w-full text-sm">
-                  <thead className="bg-gray-50">
+                  <thead>
                     <tr className="border-b-2 border-gray-200">
-                      <th className="text-left py-3 px-4 font-semibold text-gray-700">
+                      <th className="text-left py-3 px-4 font-semibold text-gray-200">
                         Account
                       </th>
                       <th className="text-right py-3 px-4 font-semibold text-gray-700">
@@ -155,15 +154,13 @@ export default function JournalPage() {
                     {trans.lines.map((line, idx) => (
                       <tr
                         key={idx}
-                        className="border-b border-gray-100 last:border-0 hover:bg-gray-50"
+                        className="border-b border-gray-100 last:border-0 hover:bg-gray-500 text-white"
                       >
-                        <td className="py-3 px-4 text-gray-900">
-                          {line.account}
-                        </td>
-                        <td className="py-3 px-4 text-right text-gray-900">
+                        <td className="py-3 px-4">{line.account}</td>
+                        <td className="py-3 px-4 text-right ">
                           {line.debit > 0 ? `$${line.debit.toFixed(2)}` : "-"}
                         </td>
-                        <td className="py-3 px-4 text-right text-gray-900">
+                        <td className="py-3 px-4 text-right ">
                           {line.credit > 0 ? `$${line.credit.toFixed(2)}` : "-"}
                         </td>
                       </tr>
@@ -174,7 +171,7 @@ export default function JournalPage() {
             ))}
 
             {Object.keys(groupedTransactions).length === 0 && (
-              <div className="bg-white rounded-lg shadow-md p-12 text-center">
+              <div className="rounded-lg shadow-md p-12 text-center">
                 <p className="text-gray-500 text-lg">
                   No transactions found in this period.
                 </p>

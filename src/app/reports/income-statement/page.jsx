@@ -46,28 +46,31 @@ export default function IncomeStatementPage() {
   const netIncome = totalRevenue - totalExpenses;
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-purple-50 to-gray-100">
+    <div className="min-h-screen bg-gray-900">
       <div className="container mx-auto px-4 py-8">
-        <div className="flex justify-between items-center mb-8">
+        <div className="flex flex-col-reverse md:flex-row justify-between items-center mb-8">
           <div>
-            <h1 className="text-4xl font-bold text-gray-900 mb-2">
+            <h1
+              className=" text-3xl
+             md:text-4xl font-bold text-gray-300 mb-2"
+            >
               Income Statement
             </h1>
-            <p className="text-gray-600">Profit & Loss Overview</p>
+            <p className="text-gray-200">Profit & Loss Overview</p>
           </div>
           <Link
             href="/reports"
-            className="px-6 py-3 bg-white rounded-lg shadow hover:shadow-lg transition border border-gray-200 font-semibold text-gray-700 flex items-center gap-2"
+            className="px-6 py-3 rounded-lg shadow hover:shadow-lg transition border border-gray-200 font-semibold text-gray-300 flex items-center gap-2"
           >
             <ArrowLeft className="w-4 h-4" />
             Back to Reports
           </Link>
         </div>
 
-        <div className="bg-white rounded-xl shadow-lg p-6 mb-6 border border-gray-200">
+        <div className="rounded-xl shadow-lg p-6 mb-6 border border-gray-200">
           <div className="flex flex-wrap gap-4 items-end">
-            <div className="flex-1 min-w-[200px]">
-              <label className="block text-sm font-semibold text-gray-700 mb-2">
+            <div className="flex-1 min-w-50">
+              <label className="block text-sm font-semibold text-gray-300 mb-2">
                 <Calendar className="w-4 h-4 inline mr-1" />
                 Start Date
               </label>
@@ -78,8 +81,8 @@ export default function IncomeStatementPage() {
                 className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-purple-500 focus:border-transparent"
               />
             </div>
-            <div className="flex-1 min-w-[200px]">
-              <label className="block text-sm font-semibold text-gray-700 mb-2">
+            <div className="flex-1 min-w-50">
+              <label className="block text-sm font-semibold text-gray-300 mb-2">
                 <Calendar className="w-4 h-4 inline mr-1" />
                 End Date
               </label>
@@ -106,11 +109,11 @@ export default function IncomeStatementPage() {
             <p className="mt-4 text-gray-600">Loading income statement...</p>
           </div>
         ) : (
-          <div className="bg-white rounded-xl shadow-lg p-8 border border-gray-200 max-w-3xl mx-auto">
-            <h3 className="text-3xl font-bold mb-2 text-center text-gray-900">
+          <div className=" rounded-xl shadow-lg p-8 border border-gray-200 max-w-3xl mx-auto">
+            <h3 className="text-3xl font-bold mb-2 text-center text-gray-200">
               Income Statement
             </h3>
-            <p className="text-center text-gray-600 mb-8">
+            <p className="text-center text-gray-400 mb-8">
               {new Date(startDate).toLocaleDateString("en-US", {
                 year: "numeric",
                 month: "long",
@@ -140,9 +143,9 @@ export default function IncomeStatementPage() {
                       </td>
                     </tr>
                   ))}
-                  <tr className="font-bold bg-green-50 border-t-2 border-green-600">
-                    <td className="py-3 text-green-800">Total Revenue</td>
-                    <td className="py-3 text-right text-green-800">
+                  <tr className="font-bold bg-green-50 border-t-2 border-green-600 ">
+                    <td className="py-3 text-green-800 px-4">Total Revenue</td>
+                    <td className="py-3 text-right text-green-800 px-3">
                       ${totalRevenue.toFixed(2)}
                     </td>
                   </tr>
@@ -160,15 +163,15 @@ export default function IncomeStatementPage() {
                 <tbody>
                   {expenses.map((row, idx) => (
                     <tr key={idx} className="border-b border-gray-200">
-                      <td className="py-3 text-gray-900">{row.account_name}</td>
-                      <td className="py-3 text-right font-semibold text-gray-900">
+                      <td className="py-3 text-gray-300">{row.account_name}</td>
+                      <td className="py-3 text-right font-semibold text-gray-300">
                         ${Math.abs(row.amount).toFixed(2)}
                       </td>
                     </tr>
                   ))}
                   <tr className="font-bold bg-red-50 border-t-2 border-red-600">
-                    <td className="py-3 text-red-800">Total Expenses</td>
-                    <td className="py-3 text-right text-red-800">
+                    <td className="py-3 text-red-800 px-3">Total Expenses</td>
+                    <td className="py-3 text-right text-red-800 px-3">
                       ${totalExpenses.toFixed(2)}
                     </td>
                   </tr>
@@ -180,11 +183,11 @@ export default function IncomeStatementPage() {
             <div
               className={`p-6 rounded-lg text-center ${
                 netIncome >= 0
-                  ? "bg-gradient-to-r from-green-100 to-green-50 border-2 border-green-500"
-                  : "bg-gradient-to-r from-red-100 to-red-50 border-2 border-red-500"
+                  ? "bg-linear-to-r from-green-100 to-green-50 border-2 border-green-500"
+                  : "bg-linear-to-r from-red-100 to-red-50 border-2 border-red-500"
               }`}
             >
-              <p className="text-sm font-semibold text-gray-700 mb-2">
+              <p className="text-sm font-semibold text-black mb-2">
                 NET INCOME
               </p>
               <p
@@ -194,7 +197,7 @@ export default function IncomeStatementPage() {
               >
                 ${netIncome.toFixed(2)}
               </p>
-              <p className="text-sm text-gray-600 mt-2">
+              <p className="text-sm text-gray-800 mt-2">
                 {netIncome >= 0 ? "✓ Profitable Period" : "⚠ Loss Period"}
               </p>
             </div>

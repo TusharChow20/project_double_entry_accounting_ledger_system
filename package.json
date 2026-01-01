@@ -9,11 +9,13 @@
     "lint": "eslint"
   },
   "dependencies": {
+    "daisyui": "^5.5.14",
     "lucide-react": "^0.562.0",
     "next": "16.1.1",
     "pg": "^8.16.3",
     "react": "19.2.3",
-    "react-dom": "19.2.3"
+    "react-dom": "19.2.3",
+    "sweetalert2": "^11.26.17"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",
