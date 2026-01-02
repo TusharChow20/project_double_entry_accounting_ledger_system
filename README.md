@@ -47,7 +47,7 @@ Before running this application, ensure you have:
 ### 1. Clone the Repository
 
 ```bash
-git clone <your-repository-url>
+git clone https://github.com/TusharChow20/project_double_entry_accounting_ledger_system.git
 cd double_entry_accounting_ledger_system
 ```
 
