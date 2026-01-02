@@ -13,9 +13,14 @@ const geistMono = Geist_Mono({
 
 export const metadata = {
   title: "Accounting Ledger System | Double-Entry Bookkeeping",
-  description: "Professional double-entry accounting ledger system for managing transactions, generating financial reports including journal entries, balance sheets, and income statements.",
-  keywords: "accounting, ledger, double-entry bookkeeping, financial reports, balance sheet, income statement, journal entries",
+  description:
+    "Professional double-entry accounting ledger system for managing transactions, generating financial reports including journal entries, balance sheets, and income statements.",
+  keywords:
+    "accounting, ledger, double-entry bookkeeping, financial reports, balance sheet, income statement, journal entries",
   authors: [{ name: "Tushar Chowdhury" }],
+  icons: {
+    icon: "/logo.png",
+  },
   openGraph: {
     title: "Accounting Ledger System",
     description: "Professional double-entry bookkeeping made simple",
@@ -29,7 +34,9 @@ export default function RootLayout({ children }) {
       <head>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </head>
-      <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
+      <body
+        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+      >
         {children}
       </body>
     </html>
